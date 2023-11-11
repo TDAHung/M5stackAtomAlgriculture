@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { X_AIO_KEY } from "@env";
 
 export const request = async (
     url: any,
@@ -9,7 +10,7 @@ export const request = async (
     let header = {
         Accept: 'application/json',
         'Content-Type': contentType,
-        'X-AIO-KEY': 'aio_rctQ44tIQlubyfnpLYr68iav0PB8',
+        'X-AIO-KEY': X_AIO_KEY,
     };
 
     const config = {

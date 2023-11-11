@@ -1,9 +1,46 @@
-import { View, Image, TouchableOpacity } from "react-native"
+import { View, Image, TouchableOpacity, Alert } from "react-native"
 import { Text } from "react-native-paper";
 import { styles } from "./style";
 import { Images } from "../../assets";
+import { PermissionsAndroid } from 'react-native';
+import { useEffect } from "react";
+import messaging from '@react-native-firebase/messaging'
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const Home = ({ navigation }: { navigation: any }) => {
+
+    useEffect(() => {
+        const requestCameraPermission = async () => {
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+                );
+                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    const token = await messaging().getToken();
+                    const id = auth().currentUser?.uid;
+                    firestore().collection('fcm_token').doc(id).set({ token });
+                    console.log('You can use the camera', token);
+                } else {
+                    console.log('Camera permission denied');
+                }
+            } catch (err) {
+                console.warn(err);
+            }
+        };
+
+
+        requestCameraPermission();
+    }, []);
+
+    useEffect(() => {
+        const unsubscribe = messaging().onMessage(async remoteMessage => {
+            Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+        });
+
+        return unsubscribe;
+    }, []);
+
     return (
         <View>
             <View style={styles.container}>
@@ -53,3 +90,4 @@ const Home = ({ navigation }: { navigation: any }) => {
 }
 
 export default Home;
+

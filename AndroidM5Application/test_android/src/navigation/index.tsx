@@ -6,16 +6,48 @@ import Home from '../features/home';
 import SoilNavigator from '../features/soil/navigation';
 
 import { faCalendarDays, faDiagramProject, faHome, faWind } from '@fortawesome/free-solid-svg-icons';
-import { Image } from 'react-native';
+import { Image, Text } from 'react-native';
 import { Images } from '../assets';
 import Pump from '../features/pump';
 import AirNavigator from '../features/air/navigation';
+import AuthStack from './authNavigation';
+import { useEffect, useState } from 'react';
+import auth from '@react-native-firebase/auth';
+import Header from '../components/header';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const AppNavigation = () => {
+    // Set an initializing state whilst Firebase connects
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+
+
+    // Handle user state changes
+    const onAuthStateChanged = (user: any) => {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return subscriber; // unsubscribe on unmount
+    }, []);
+
+    if (initializing) return null;
+
+    if (!user) {
+        return (
+            <NavigationContainer>
+                <AuthStack />
+            </NavigationContainer>
+        );
+    }
+
+
     return (
         <NavigationContainer>
+            <Header />
             <Tab.Navigator
             >
                 <Tab.Screen
