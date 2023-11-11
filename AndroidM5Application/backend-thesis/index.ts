@@ -7,7 +7,6 @@ require('dotenv').config();
 
 // Adafruit configuration
 const AIO_USERNAME = 'Suchuru';
-const AIO_KEY = 'aio_gmgQ91gxv21KvRWrL5MZZKEdtz9q';
 
 // Firestore Init
 admin.initializeApp({
