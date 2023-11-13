@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import auth from '@react-native-firebase/auth';
 import Loader from '../../components/loader';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }: { navigation: any }) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [is_loading, setIsLoading] = useState<boolean>();
@@ -43,6 +43,11 @@ const LoginScreen = () => {
                 onPress={onPressLogin}
             >
                 <Text style={{ color: "white", textAlign: "center" }}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => { navigation.navigate("RegisterScreen"); }}
+            >
+                <Text style={{ textDecorationLine: "underline", color: "#BE93D4", textAlign: "center", marginTop: 20 }}>Register a new account</Text>
             </TouchableOpacity>
             {is_loading && <Loader />}
         </View>

@@ -1,9 +1,9 @@
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import auth from '@react-native-firebase/auth';
 import Loader from '../../components/loader';
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ navigation }: { navigation: any }) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirm_password, setConfirmPassword] = useState<string>("");
@@ -36,15 +36,20 @@ const RegisterScreen = () => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
-            <TextInput placeholder='Email' id="email" onChangeText={setEmail} />
-            <TextInput placeholder='Password' secureTextEntry id="password" onChangeText={setPassword} />
-            <TextInput placeholder='Confirm Password' secureTextEntry onChangeText={setConfirmPassword} />
+        <View style={{ flex: 1, backgroundColor: "white", paddingHorizontal: 30, justifyContent: "center" }}>
+            <TextInput style={{ borderBottomWidth: 1, borderColor: "#BE93D4" }} placeholderTextColor={"#BE93D4"} placeholder='Email' id="email" onChangeText={setEmail} />
+            <TextInput style={{ borderBottomWidth: 1, borderColor: "#BE93D4" }} placeholderTextColor={"#BE93D4"} placeholder='Password' secureTextEntry id="password" onChangeText={setPassword} />
+            <TextInput style={{ borderBottomWidth: 1, borderColor: "#BE93D4" }} placeholderTextColor={"#BE93D4"} placeholder='Confirm Password' secureTextEntry onChangeText={setConfirmPassword} />
             <TouchableOpacity
-                style={{ backgroundColor: "blue" }}
+                style={{ backgroundColor: "#BE93D4", marginTop: 50, paddingVertical: 10 }}
                 onPress={onPressLogin}
             >
-                <Text style={{ color: "white" }}>Login</Text>
+                <Text style={{ color: "white", textAlign: "center" }}>Register</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => { navigation.navigate("LoginScreen"); }}
+            >
+                <Text style={{ textDecorationLine: "underline", color: "#BE93D4", textAlign: "center", marginTop: 20 }}>Login</Text>
             </TouchableOpacity>
             {is_loading && <Loader />}
         </View>

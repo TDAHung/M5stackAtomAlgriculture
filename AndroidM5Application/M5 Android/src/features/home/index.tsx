@@ -20,7 +20,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                     const token = await messaging().getToken();
                     const id = auth().currentUser?.uid;
                     firestore().collection('fcm_token').doc(id).set({ token });
-                    console.log('You can use the camera', token);
+                    console.log('You can use this token', token);
                 } else {
                     console.log('Camera permission denied');
                 }
