@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import Home from '../features/home';
 import SoilNavigator from '../features/soil/navigation';
 
-import { faCalendarDays, faDiagramProject, faHome, faWind } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faDiagramProject, faHome, faLeaf, faWind } from '@fortawesome/free-solid-svg-icons';
 import { Image, Text } from 'react-native';
 import { Images } from '../assets';
 import Pump from '../features/pump';
@@ -14,6 +14,7 @@ import AuthStack from './authNavigation';
 import { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
 import Header from '../components/header';
+import PlantNavigator from '../features/plant';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -57,6 +58,16 @@ const AppNavigation = () => {
                         tabBarLabel: 'Home',
                         tabBarIcon: () => (
                             <FontAwesomeIcon icon={faHome} size={23} color='#966FD6' />
+                        ),
+                    }}
+                />
+                <Tab.Screen
+                    name="Plant"
+                    component={PlantNavigator}
+                    options={{
+                        tabBarLabel: 'Plant',
+                        tabBarIcon: () => (
+                            <FontAwesomeIcon icon={faLeaf} size={23} color='#966FD6' />
                         ),
                     }}
                 />

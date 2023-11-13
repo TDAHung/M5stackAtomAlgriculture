@@ -11,7 +11,7 @@ import auth from '@react-native-firebase/auth';
 const Home = ({ navigation }: { navigation: any }) => {
 
     useEffect(() => {
-        const requestCameraPermission = async () => {
+        const requestNotificationPermission = async () => {
             try {
                 const granted = await PermissionsAndroid.request(
                     PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
@@ -29,8 +29,7 @@ const Home = ({ navigation }: { navigation: any }) => {
             }
         };
 
-
-        requestCameraPermission();
+        requestNotificationPermission();
     }, []);
 
     useEffect(() => {
